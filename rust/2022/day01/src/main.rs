@@ -3,7 +3,7 @@ use std::process;
 
 use day01::{self, input::get_file_lines};
 
-#[derive(Parser, Debug)]
+#[derive(Parser)]
 struct Arguments {
     /// First part's input file name
     #[clap(short, long)]
