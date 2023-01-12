@@ -74,12 +74,6 @@ mod test {
     use super::*;
 
     #[test]
-    fn test_a() {
-        assert!((1..=5).contains(&1));
-        assert!((1..=5).contains(&5));
-    }
-
-    #[test]
     fn test_fully_overlapped_pairs() {
         assert_eq!(fully_overlapped_pairs("\
 2-4,6-8
