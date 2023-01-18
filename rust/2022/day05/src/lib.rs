@@ -172,7 +172,7 @@ pub mod crate_stacks_lines_parser {
                 .step_by(4)// i += 4
                 .map(|i| &line[i..i + 1])// return crate name as a slice
                 .enumerate()
-                .filter(|(i, crate_name)| !crate_name.trim().is_empty())
+                .filter(|(_, crate_name)| !crate_name.trim().is_empty())
                 .for_each(|(i, crate_name)| crate_stacks.add_to_stack(i, crate_name.to_string()))
         }
     }
