@@ -5,6 +5,7 @@ e.g:
 $ cd AdventOfCode/rust/2022/day04
 $ cargo run -- -f resources/input/first_part.txt -s resources/input/first_part.txt
 ```
+Note that the input provided in the resources directory is my own and every contestant gets their own input.
 
 # Day 4: Camp Cleanup
 
