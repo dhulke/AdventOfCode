@@ -59,7 +59,8 @@ impl PartialEq for Directory {
 /**
     This iterator returns only directories out of a children attribute. It is backed by the
     std::collections::hash_map::Values iterator and skips over any values that aren't Directory.
-    This is supposed to be used by Directory::directories().
+    This is supposed to be used by Directory::directories(). I created it instead of just filtering
+    over values to provide a nicer api.
 */
 pub struct DirectoryIterator<'a> {
     disk_items: Values<'a, String, DiskItemType>
@@ -273,11 +274,15 @@ fn sum_directory_sizes_of(max_size: usize, directory: &DiskItemType) -> usize {
     }
 }
 
-pub fn directory_size_to_free_30_000_000(lines: impl Iterator<Item=String>) -> usize {
+/// Returns directory size to free necessary space or -1 in case space is already free
+pub fn directory_size_to_free_30_000_000(lines: impl Iterator<Item=String>) -> isize {
     let directory = command_text_parser::parse(lines);
-    let root_size = directory.borrow().size();
-    let size = directory_size_to_free(30_000_000 - (70_000_000 - root_size), &directory);
-    size
+    let min_size = 30_000_000 - (70_000_000 - directory.borrow().size() as isize);
+    if min_size >= 0 {
+        directory_size_to_free(min_size as usize, &directory) as isize
+    } else {
+        -1
+    }
 }
 
 fn directory_size_to_free(min_size: usize, directory: &DiskItemType) -> usize {
