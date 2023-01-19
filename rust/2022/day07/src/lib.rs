@@ -256,6 +256,7 @@ dir e
     }
 }
 
+/// Response to the first part
 pub fn sum_directory_sizes_of_100_000(lines: impl Iterator<Item=String>) -> usize {
     sum_directory_sizes_of(100_000, &command_text_parser::parse(lines))
 }
@@ -274,6 +275,7 @@ fn sum_directory_sizes_of(max_size: usize, directory: &DiskItemType) -> usize {
     }
 }
 
+/// Response to the second part
 /// Returns directory size to free necessary space or -1 in case space is already free
 pub fn directory_size_to_free_30_000_000(lines: impl Iterator<Item=String>) -> isize {
     let directory = command_text_parser::parse(lines);

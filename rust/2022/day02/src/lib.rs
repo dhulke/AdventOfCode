@@ -113,6 +113,7 @@ impl From<MyOutcome> for RPS {
     }
 }
 
+/// Response to the first part
 pub fn total_rps_score_with_my_shape(plays: impl Iterator<Item=impl AsRef<str>>) -> usize {
     let mut total_score = 0;
     for line in plays {
@@ -125,6 +126,7 @@ pub fn total_rps_score_with_my_shape(plays: impl Iterator<Item=impl AsRef<str>>)
     total_score
 }
 
+/// Response to the second part
 pub fn total_rps_score_with_outcome(plays: impl Iterator<Item=impl AsRef<str>>) -> usize {
     let mut total_score = 0;
     for line in plays {

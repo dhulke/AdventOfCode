@@ -81,8 +81,8 @@ impl CrateStacks {
 }
 
 /**
-This is a factory module that initializes CrateStacks from Iterator<Item=String>. We could have
-other factory modules that initialize CrateStacks from different sources.
+    This is a factory module that initializes CrateStacks from Iterator<Item=String>. We could have
+    other factory modules that initialize CrateStacks from different sources.
  */
 pub mod crate_stacks_lines_parser {
     use super::*;
@@ -94,9 +94,10 @@ pub mod crate_stacks_lines_parser {
     }
 
     /**
-    Read the lines iterator until we reach the end of crate stacks (blank line) storing these
-    lines in a Vec for creating the CrateStacks struct. Then pass the remaining iterator to
-    get_iterator_with_move_instructions that will parse the instructions that will mutate CrateStacks.
+        Read the lines iterator until we reach the end of crate stacks (blank line) storing these
+        lines in a Vec for creating the CrateStacks struct. Then pass the remaining iterator to
+        get_iterator_with_move_instructions that will parse the instructions that will mutate
+        CrateStacks.
      */
     pub fn parse_from_top_all_instructions_from_lines(mut lines: impl Iterator<Item=String>) -> CrateStacks {
         let mut crate_stacks = parse_crate_stacks(&mut lines);
@@ -109,9 +110,10 @@ pub mod crate_stacks_lines_parser {
     }
 
     /**
-    Read the lines iterator until we reach the end of crate stacks (blank line) storing these
-    lines in a Vec for creating the CrateStacks struct. Then pass the remaining iterator to
-    get_iterator_with_move_instructions that will parse the instructions that will mutate CrateStacks.
+        Read the lines iterator until we reach the end of crate stacks (blank line) storing these
+        lines in a Vec for creating the CrateStacks struct. Then pass the remaining iterator to
+        get_iterator_with_move_instructions that will parse the instructions that will mutate
+        CrateStacks.
      */
     pub fn parse_from_bottom_all_instructions_from_lines(mut lines: impl Iterator<Item=String>) -> CrateStacks {
         let mut crate_stacks = parse_crate_stacks(&mut lines);
@@ -225,10 +227,12 @@ move 2 from 4 to 1".lines().map(String::from)),
     }
 }
 
+/// Response to the first part
 pub fn get_top_crates_after_moves_from_top(lines: impl Iterator<Item=String>) -> String {
     crate_stacks_lines_parser::parse_from_top_all_instructions_from_lines(lines).get_top_crates()
 }
 
+/// Response to the second part
 pub fn get_top_crates_after_moves_from_bottom(lines: impl Iterator<Item=String>) -> String {
     crate_stacks_lines_parser::parse_from_bottom_all_instructions_from_lines(lines).get_top_crates()
 }

@@ -49,6 +49,7 @@ fn parse_ranges(line: &str) -> Option<(usize, usize, usize, usize)> {
     None
 }
 
+/// Response to the first part
 fn range_fully_overlaps(first_pair_start: usize, first_pair_end: usize, second_pair_start: usize, second_pair_end: usize) -> bool {
     if first_pair_end - first_pair_start > second_pair_end - second_pair_start {
         // larger pair is first pair
@@ -59,6 +60,7 @@ fn range_fully_overlaps(first_pair_start: usize, first_pair_end: usize, second_p
     }
 }
 
+/// Response to the second part
 fn range_partially_overlaps(first_pair_start: usize, first_pair_end: usize, second_pair_start: usize, second_pair_end: usize) -> bool {
     if first_pair_start <  second_pair_start {
         // larger pair is first pair

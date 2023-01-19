@@ -2,7 +2,12 @@ use std::collections::{HashSet, VecDeque};
 
 pub mod input;
 
-
+/// Response to the first and second parts
+/**
+    Creates a rolling window of window_size characters and adds that to a hashset that in turn
+    removes duplicates. If the hashset ends up with size window_size, then there were no duplicates
+    and the packet was found.
+*/
 pub fn get_start_of_packet_position(characters: impl Iterator<Item=char>, window_size: usize) -> isize {
     let mut window = VecDeque::with_capacity(window_size);
     for (index, character) in characters.enumerate() {

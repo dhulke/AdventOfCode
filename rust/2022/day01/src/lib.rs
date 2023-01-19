@@ -1,5 +1,6 @@
 pub mod input;
 
+/// Response to the first part
 pub fn highest_group_calories(calory_groups: impl Iterator<Item=impl AsRef<str>>) -> usize {
     let mut highest_group_calories = 0;
     let mut current_group_calories = 0;
@@ -20,6 +21,7 @@ pub fn highest_group_calories(calory_groups: impl Iterator<Item=impl AsRef<str>>
     highest_group_calories
 }
 
+/// Response to the second part
 pub fn top_n_highest_group_calories(calory_groups: impl Iterator<Item=impl AsRef<str>>, n: usize) -> usize {
     let mut current_group_calories = 0;
     let mut sum_calory_groups: Vec<usize> = vec![];

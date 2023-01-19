@@ -2,6 +2,7 @@ use std::collections::HashSet;
 
 pub mod input;
 
+/// Response to the first part
 pub fn rucksacks_priorities_sum(lines: impl Iterator<Item=impl AsRef<str>>) -> usize {
     let mut rucksacks_priorities_sum = 0;
     for line in lines {
@@ -11,6 +12,7 @@ pub fn rucksacks_priorities_sum(lines: impl Iterator<Item=impl AsRef<str>>) -> u
     rucksacks_priorities_sum
 }
 
+/// Response to the second part
 pub fn rucksacks_group_badges_sum(lines: impl Iterator<Item=impl AsRef<str>>) -> usize {
     let mut rucksacks_group_badges_sum = 0;
     let mut lines = lines.into_iter();
