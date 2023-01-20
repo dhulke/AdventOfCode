@@ -1,5 +1,3 @@
-extern crate core;
-
 use std::collections::HashSet;
 
 pub mod input;
