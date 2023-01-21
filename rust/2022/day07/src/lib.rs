@@ -3,6 +3,7 @@ use std::collections::hash_map::Values;
 use std::collections::HashMap;
 use std::rc::{Rc, Weak};
 use std::cmp;
+use std::ops::Deref;
 
 pub mod input;
 
@@ -74,7 +75,7 @@ impl <'a> Iterator for DirectoryIterator<'a> {
             match self.disk_items.next() {
                 None => return None,
                 Some(disk_item) =>
-                    if let DiskItem::Directory(_) = &*disk_item.borrow() {
+                    if let DiskItem::Directory(_) = disk_item.borrow().deref() {
                         return Some(disk_item)
                     }
             }
@@ -142,6 +143,7 @@ impl SizableDiskItem for DiskItem {
     other modules that derive DiskItemType from other sources.
 */
 pub mod command_text_parser {
+    use std::ops::DerefMut;
     use super::*;
 
     pub fn parse(lines: impl Iterator<Item=String>) -> DiskItemType {
@@ -177,7 +179,7 @@ pub mod command_text_parser {
     }
 
     fn get_parent_directory(current_directory: Option<DiskItemType>) -> Option<DiskItemType> {
-        if let DiskItem::Directory(curr) = &*current_directory.unwrap().borrow() {
+        if let DiskItem::Directory(curr) = current_directory.unwrap().borrow().deref() {
             Some(Rc::clone(&curr.get_parent()
                 .expect("Should only fail if this is root, which shouldn't happen")))
         } else {
@@ -186,7 +188,7 @@ pub mod command_text_parser {
     }
 
     fn get_directory_by_name(current_directory: Option<DiskItemType>, directory_name: &str) -> Option<DiskItemType> {
-        if let DiskItem::Directory(curr) = &*current_directory.unwrap().borrow() {
+        if let DiskItem::Directory(curr) = current_directory.unwrap().borrow().deref() {
             Some(Rc::clone(curr.get_child(directory_name)
                 .expect("Should only fail if directory doesn't exist, which shouldn't happen")))
         } else {
@@ -195,10 +197,11 @@ pub mod command_text_parser {
     }
 
     fn add_directory(current_directory: &Option<DiskItemType>, directory_name: &str) {
-        if let DiskItem::Directory(directory) = &mut *current_directory
+        if let DiskItem::Directory(directory) = current_directory
             .as_ref()
             .unwrap()
-            .borrow_mut() {
+            .borrow_mut()
+            .deref_mut() {
                 directory.add_child(directory_name.to_string(),
                                     DiskItem::Directory(
                                         Directory::new(
@@ -207,10 +210,11 @@ pub mod command_text_parser {
     }
 
     fn add_file(current_directory: &Option<DiskItemType>, file_name: &str, file_size: &str) {
-        if let DiskItem::Directory(directory) = &mut *current_directory
+        if let DiskItem::Directory(directory) = current_directory
             .as_ref()
             .unwrap()
-            .borrow_mut() {
+            .borrow_mut()
+            .deref_mut() {
             directory.add_child(file_name.to_string(),
                                 DiskItem::File(File::new(file_size.parse::<usize>()
                                         .expect("Expect file size to be usize"))))
@@ -224,13 +228,13 @@ pub mod command_text_parser {
         #[test]
         fn test_parse_commands() {
             let root_directory = Rc::new(RefCell::new(DiskItem::Directory(Directory::new(None))));
-            if let DiskItem::Directory(rtdir) = &mut *root_directory.borrow_mut() {
+            if let DiskItem::Directory(rtdir) = root_directory.borrow_mut().deref_mut() {
                 rtdir.add_child("a".to_string(), DiskItem::Directory(Directory::new(Some(Rc::downgrade(&root_directory)))));
                 rtdir.add_child("b.txt".to_string(), DiskItem::File(File::new(14_848_514)));
                 rtdir.add_child("c.dat".to_string(), DiskItem::File(File::new(8_504_156)));
                 rtdir.add_child("d".to_string(), DiskItem::Directory(Directory::new(Some(Rc::downgrade(&root_directory)))));
                 let dir_a = rtdir.get_child("a").unwrap();
-                if let DiskItem::Directory(a) = &mut *dir_a.borrow_mut() {
+                if let DiskItem::Directory(a) = dir_a.borrow_mut().deref_mut() {
                     a.add_child("e".to_string(), DiskItem::Directory(Directory::new(Some(Rc::downgrade(dir_a)))));
                     a.add_child("f".to_string(), DiskItem::File(File::new(29_116)));
                     a.add_child("g".to_string(), DiskItem::File(File::new(2_557)));
@@ -262,7 +266,7 @@ pub fn sum_directory_sizes_of_100_000(lines: impl Iterator<Item=String>) -> usiz
 }
 
 fn sum_directory_sizes_of(max_size: usize, directory: &DiskItemType) -> usize {
-    if let DiskItem::Directory(current_directory) = &*directory.borrow() {
+    if let DiskItem::Directory(current_directory) = directory.borrow().deref() {
         let current_directory_size = current_directory.size();
         let current_directory_size = if current_directory_size <= max_size { current_directory_size } else { 0 };
 
@@ -288,7 +292,7 @@ pub fn directory_size_to_free_30_000_000(lines: impl Iterator<Item=String>) -> i
 }
 
 fn directory_size_to_free(min_size: usize, directory: &DiskItemType) -> usize {
-    if let DiskItem::Directory(current_directory) = &*directory.borrow() {
+    if let DiskItem::Directory(current_directory) = directory.borrow().deref() {
         let current_directory_size = current_directory.size();
 
         let min = current_directory
