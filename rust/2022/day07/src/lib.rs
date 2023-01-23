@@ -147,12 +147,16 @@ pub mod command_text_parser {
     use super::*;
 
     pub fn parse(lines: impl Iterator<Item=String>) -> DiskItemType {
-        let root_directory = Rc::new(RefCell::new(DiskItem::Directory(Directory::new(None))));
+        let root_directory = Rc::new(RefCell::new(
+            DiskItem::Directory(Directory::new(None))));
         let mut current_directory: Option<DiskItemType> = Some(Rc::clone(&root_directory));
 
         for line in lines {
             if line.starts_with("$ cd") {
-                let directory_name = line.split(' ').nth(2).expect("There should be a directory name after cd");
+                let directory_name = line
+                    .split(' ')
+                    .nth(2)
+                    .expect("There should be a directory name after cd");
                 current_directory = match directory_name {
                     "/" => get_root_directory(&root_directory),
                     ".." => get_parent_directory(current_directory),
@@ -180,8 +184,7 @@ pub mod command_text_parser {
 
     fn get_parent_directory(current_directory: Option<DiskItemType>) -> Option<DiskItemType> {
         if let DiskItem::Directory(curr) = current_directory.unwrap().borrow().deref() {
-            Some(Rc::clone(&curr.get_parent()
-                .expect("Should only fail if this is root, which shouldn't happen")))
+            curr.get_parent().as_ref().map(Rc::clone)
         } else {
             None
         }
@@ -189,8 +192,7 @@ pub mod command_text_parser {
 
     fn get_directory_by_name(current_directory: Option<DiskItemType>, directory_name: &str) -> Option<DiskItemType> {
         if let DiskItem::Directory(curr) = current_directory.unwrap().borrow().deref() {
-            Some(Rc::clone(curr.get_child(directory_name)
-                .expect("Should only fail if directory doesn't exist, which shouldn't happen")))
+            curr.get_child(directory_name).map(Rc::clone)
         } else {
             None
         }
