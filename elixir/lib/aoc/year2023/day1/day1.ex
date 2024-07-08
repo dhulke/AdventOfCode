@@ -69,7 +69,7 @@ defmodule Aoc.Year2023.Day1.Day1 do
     |> Enum.sum()
   end
 
-  def first_and_last_digit_as_integer(line) do
+  defp first_and_last_digit_as_integer(line) do
     Map.keys(@digits)
     |> Enum.map(&indexes_of(&1, line))
     |> List.flatten()
