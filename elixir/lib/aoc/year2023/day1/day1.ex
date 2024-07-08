@@ -87,8 +87,7 @@ defmodule Aoc.Year2023.Day1.Day1 do
   end
 
   defp min_max(indexes) do
-    indexes
-    |> Enum.reduce(nil, fn
+    Enum.reduce(indexes, nil, fn
       {index, pattern}, nil ->
         {{index, pattern}, {index, pattern}}
 
