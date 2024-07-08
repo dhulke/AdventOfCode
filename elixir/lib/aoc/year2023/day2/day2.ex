@@ -1,11 +1,13 @@
 defmodule Aoc.Year2023.Day2.Day2 do
   @moduledoc false
 
+  alias Aoc.TextUtil
+
   @max_per_game %{red: 12, green: 13, blue: 14}
 
   def part1(input) do
     input
-    |> String.split("\n", trim: true)
+    |> TextUtil.lines()
     |> Stream.filter(&valid_game?/1)
     |> Stream.map(&game_id/1)
     |> Enum.sum()
@@ -13,7 +15,7 @@ defmodule Aoc.Year2023.Day2.Day2 do
 
   def part2(input) do
     input
-    |> String.split("\n", trim: true)
+    |> TextUtil.lines()
     |> Stream.map(&min_valid_set_of_cubes/1)
     |> Stream.map(&(&1.red * &1.green * &1.blue))
     |> Enum.sum()

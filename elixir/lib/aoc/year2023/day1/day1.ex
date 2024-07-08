@@ -4,6 +4,8 @@ defmodule Aoc.Year2023.Day1.Day1 do
   so I left both implementations for reference
   """
 
+  alias Aoc.TextUtil
+
   @digits %{
     "one" => "1",
     "1" => "1",
@@ -27,7 +29,7 @@ defmodule Aoc.Year2023.Day1.Day1 do
 
   def part1(input) do
     input
-    |> String.split("\n", trim: true)
+    |> TextUtil.lines()
     |> Enum.map(fn line ->
       line
       |> digits()
@@ -51,20 +53,13 @@ defmodule Aoc.Year2023.Day1.Day1 do
   defp digits(line) do
     line
     |> String.graphemes()
-    |> Enum.filter(&is_digit/1)
+    |> Enum.filter(&TextUtil.is_digit/1)
     |> Enum.join("")
-  end
-
-  defp is_digit(str) do
-    case Integer.parse(str) do
-      {_, ""} -> true
-      _ -> false
-    end
   end
 
   def part2(input) do
     input
-    |> String.split("\n", trim: true)
+    |> TextUtil.lines()
     |> Enum.map(&first_and_last_digit_as_integer/1)
     |> Enum.sum()
   end
