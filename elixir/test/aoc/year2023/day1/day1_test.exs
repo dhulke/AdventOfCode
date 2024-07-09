@@ -9,13 +9,13 @@ defmodule AocTest.Year2023.Day1.Day1 do
     treb7uchet
     """
 
-    assert Aoc.Year2023.Day1.Day1.part1(sample_input) == 142
+    assert Aoc.Year2023.Day1.Day1.part1(sample_input) === 142
   end
 
   test "Part 1 - Real Payload" do
     contents = File.read!(Path.join(__DIR__, "part1_payload.txt"))
 
-    assert Aoc.Year2023.Day1.Day1.part1(contents) == 54697
+    assert Aoc.Year2023.Day1.Day1.part1(contents) === 54697
   end
 
   test "Part 2 - Example" do
@@ -29,7 +29,7 @@ defmodule AocTest.Year2023.Day1.Day1 do
     7pqrstsixteen
     """
 
-    assert Aoc.Year2023.Day1.Day1.part2(sample_input) == 281
+    assert Aoc.Year2023.Day1.Day1.part2(sample_input) === 281
   end
 
   test "Part 2 - Edge Case" do
@@ -37,12 +37,12 @@ defmodule AocTest.Year2023.Day1.Day1 do
     twone
     """
 
-    assert Aoc.Year2023.Day1.Day1.part2(sample_input) == 21
+    assert Aoc.Year2023.Day1.Day1.part2(sample_input) === 21
   end
 
   test "Part 2 - Real Payload" do
     contents = File.read!(Path.join(__DIR__, "part1_payload.txt"))
 
-    assert Aoc.Year2023.Day1.Day1.part2(contents) == 54885
+    assert Aoc.Year2023.Day1.Day1.part2(contents) === 54885
   end
 end

@@ -15,13 +15,13 @@ defmodule AocTest.Year2023.Day3.Day3 do
     .664.598..
     """
 
-    assert Aoc.Year2023.Day3.Day3.part1(sample_input) == 4361
+    assert Aoc.Year2023.Day3.Day3.part1(sample_input) === 4361
   end
 
   test "Part 1 - Real Payload" do
     contents = File.read!(Path.join(__DIR__, "part3_payload.txt"))
 
-    assert Aoc.Year2023.Day3.Day3.part1(contents) == 530849
+    assert Aoc.Year2023.Day3.Day3.part1(contents) === 530849
   end
 
   test "Part 2 - Example" do
@@ -38,12 +38,12 @@ defmodule AocTest.Year2023.Day3.Day3 do
     .664.598..
     """
 
-    assert Aoc.Year2023.Day3.Day3.part2(sample_input) == 467835
+    assert Aoc.Year2023.Day3.Day3.part2(sample_input) === 467835
   end
 
   test "Part 2 - Real Payload" do
     contents = File.read!(Path.join(__DIR__, "part3_payload.txt"))
 
-    assert Aoc.Year2023.Day3.Day3.part2(contents) == 84900879
+    assert Aoc.Year2023.Day3.Day3.part2(contents) === 84900879
   end
 end

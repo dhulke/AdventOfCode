@@ -10,13 +10,13 @@ defmodule AocTest.Year2023.Day2.Day2 do
     Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
     """
 
-    assert Aoc.Year2023.Day2.Day2.part1(sample_input) == 8
+    assert Aoc.Year2023.Day2.Day2.part1(sample_input) === 8
   end
 
   test "Part 1 - Real Payload" do
     contents = File.read!(Path.join(__DIR__, "part2_payload.txt"))
 
-    assert Aoc.Year2023.Day2.Day2.part1(contents) == 2256
+    assert Aoc.Year2023.Day2.Day2.part1(contents) === 2256
   end
 
   test "Part 2 - Example" do
@@ -28,12 +28,12 @@ defmodule AocTest.Year2023.Day2.Day2 do
     Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
     """
 
-    assert Aoc.Year2023.Day2.Day2.part2(sample_input) == 2286
+    assert Aoc.Year2023.Day2.Day2.part2(sample_input) === 2286
   end
 
   test "Part 2 - Real Payload" do
     contents = File.read!(Path.join(__DIR__, "part2_payload.txt"))
 
-    assert Aoc.Year2023.Day2.Day2.part2(contents) == 74229
+    assert Aoc.Year2023.Day2.Day2.part2(contents) === 74229
   end
 end
