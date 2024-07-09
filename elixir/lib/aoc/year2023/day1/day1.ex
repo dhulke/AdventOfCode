@@ -5,6 +5,7 @@ defmodule Aoc.Year2023.Day1.Day1 do
   """
 
   alias Aoc.TextUtil
+  alias Aoc.RegexUtil
 
   @digits %{
     "one" => "1",
@@ -77,8 +78,8 @@ defmodule Aoc.Year2023.Day1.Day1 do
 
   defp indexes_of(pattern, subject) do
     ~r/#{pattern}/
-    |> Regex.scan(subject, return: :index)
-    |> Enum.map(&{elem(hd(&1), 0), pattern})
+    |> RegexUtil.scan_slice_index(subject)
+    |> Enum.map(&{elem(&1, 0), pattern})
   end
 
   defp min_max(indexes) do
